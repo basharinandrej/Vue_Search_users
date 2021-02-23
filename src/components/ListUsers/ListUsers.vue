@@ -6,6 +6,8 @@
         :avatar_url="item.avatar_url"
         :login="item.login"
         :type="item.type"
+        :repos="item.repos_url"
+        :id="item.id"
         :idx="idx"
     />
   </ul>

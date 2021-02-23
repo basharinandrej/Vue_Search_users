@@ -20,6 +20,8 @@
 
 <script>
 
+import {getCache, hasCache} from "@/cache/localStore";
+
 export default {
   name: 'Pagination',
   data() {
@@ -31,22 +33,32 @@ export default {
     clickHandler(e) {
       const target = e.target
       const page = this.currentPage = target.dataset.page
-
       this.$store.commit('updateCurrentPage', page)
       this.updateFetchUsers()
     },
     async updateFetchUsers() {
+
+      // const payloadCache = {
+      //   //id: this.id,
+      //   name: 'repos'
+      // }
       await this.$store.dispatch('fetchUsers')
+
+      //console.log('getIdUsers', this.$store.getters.getIdUsers);
+      // hasCache('repos')
+      //     ? this.$store.commit('successFetchRepos', getCache(payloadCache))
+      //     : await this.$store.dispatch('fetchRepos', payload)
     }
   },
   computed: {
     cntPages() {
       const configPagination = {
-        PER_PAGE: 10,
+        PER_PAGE: this.$store.state.users.perPage,
         LIMIT_PAGES: 5,
-        EQUATOR: 3
+        EQUATOR: 3,
+        TOTAL_COUNT: this.$store.state.users.total_count
       }
-      const cntPages = Math.round(this.$store.state.total_count / configPagination.PER_PAGE)
+      const cntPages = Math.round( configPagination.TOTAL_COUNT / configPagination.PER_PAGE)
       const currentPage = +this.$store.state.currentPage
       const pagination = cntPages > configPagination.LIMIT_PAGES
           ? configPagination.LIMIT_PAGES

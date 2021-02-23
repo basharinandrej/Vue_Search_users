@@ -1,16 +1,20 @@
 <template>
   <form
-      @submit.prevent
+      @submit.prevent="submitHandler"
       class="form">
       <input type="search"
              required
              v-model.trim="search"
-             @input="searchHandler"
+
       >
+      <button type="submit">
+        Send
+      </button>
   </form>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -18,10 +22,18 @@ export default {
     }
   },
   methods: {
-    async searchHandler() {
+    async submitHandler() {
       this.$store.commit('saveSearchValue', this.search)
+
       await this.$store.dispatch('fetchUsers')
     }
   }
 }
 </script>
+
+
+
+
+
+
+
