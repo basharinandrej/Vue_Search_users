@@ -22,20 +22,20 @@ h1
     border-radius: 50%
     object-fit: cover
 
-.list
-    display: flex
-    flex-wrap: wrap
-
 .list li
     display: flex
     margin-bottom: 32px
     border: 1px solid grey
     padding: 8px 12px
     border-radius: 8px
-    margin-right: 16px
 
 .list li:last-child
     margin-right: 0
+
+.list li span
+    display: flex
+    justify-content: space-between
+    width: 100%
 
 .stub
     text-align: center
@@ -46,25 +46,8 @@ h1
 .pagination__list
     display: flex
 
-//.page-item
-//    display: none
-//
-//.page-item.active
-//    display: block
-//
-//.page-item.active+.page-item
-//    display: block
-//
-//.page-item.active+.page-item+.page-item
-//    display: block
-//
-//.page-item.active+.page-item+.page-item+.page-item
-//    display: block
-//
-//.page-item.active+.page-item+.page-item+.page-item+.page-item
-//    display: block
+p
+    margin-bottom: 0
 
-
-
-
-
+.sort
+    cursor: pointer

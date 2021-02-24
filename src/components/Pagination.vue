@@ -19,7 +19,7 @@
 </template>
 
 <script>
-
+/*TODO Пагинация не сохраняет своё состояние если вернуться с детальной страницы */
 export default {
   name: 'Pagination',
   data() {

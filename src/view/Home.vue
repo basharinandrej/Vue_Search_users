@@ -7,6 +7,7 @@
       Загрузка....
     </p>
 
+    <Sort />
     <ListUsers
         v-if="!startFetchUsers && !failureFetchRepos"
         :fetchUsers="fetchUsers"
@@ -17,7 +18,7 @@
     />
 
     {{ /*TODO Вынести в компонент вывод ошибки */ }}
-    <p  v-if="failureFetchRepos">
+    <p  v-if="failureFetchUsers">
       {{failureFetchUsers}}
     </p>
 
@@ -34,6 +35,7 @@ import ListUsers from "@/components/ListUsers/ListUsers";
 import Pagination from "@/components/Pagination";
 import Form from "@/components/Form";
 import Stub from "@/components/Stub";
+import Sort from "@/components/Sort";
 
 export default {
   data() {
@@ -45,7 +47,7 @@ export default {
     Form,
     ListUsers,
     Pagination,
-    Stub
+    Stub, Sort
   },
   computed: {
     startFetchUsers() {
