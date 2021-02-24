@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getCache, hasCache} from "@/cache/localStore";
+import baseUrl from '@/helpers/url/baseUrl'
 
 const state = {
     items: [],
@@ -14,7 +14,9 @@ const state = {
 
 const actions = {
     async fetchUsers({commit, state}) {
-        commit('startFetchUsers', true)
+        commit('startFetchUsers', {
+            isLoading: true
+        })
 
         const configRequest = {
             CURRENT_PAGE: state.currentPage,
@@ -22,10 +24,9 @@ const actions = {
             PER_PAGE: state.perPage
         }
 
-        {/*TODO Вынести get url в отдельный файл baseURL */}
         try {
             const response = await axios
-                .get(`https://api.github.com/search/users?q=${configRequest.NAME}&page=${configRequest.CURRENT_PAGE}&per_page=${configRequest.PER_PAGE}`)
+                .get(`${baseUrl}users?q=${configRequest.NAME}&page=${configRequest.CURRENT_PAGE}&per_page=${configRequest.PER_PAGE}`)
 
             const users = await response.data
             const payloadAddUsers = {
@@ -45,7 +46,7 @@ const actions = {
 }
 const mutations = {
     startFetchUsers(state, payload) {
-        state.isLoading = payload
+        state.isLoading = payload.isLoading
     },
     successFetchUsers(state, payload) {
         state.items = payload.items
@@ -62,7 +63,7 @@ const mutations = {
     updateCurrentPage(state, payload) {
         state.currentPage = payload
     },
-    currentFlat(state, payload) {
+    currentUser(state, payload) {
         state.currentUser = state.items.find(el => el.id === +payload)
     }
 }

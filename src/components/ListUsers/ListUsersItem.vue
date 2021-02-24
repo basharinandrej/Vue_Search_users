@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import {getCache, hasCache} from "@/cache/localStore";
 
 export default {
   name: 'ListUsersItem',
@@ -25,24 +24,14 @@ export default {
       id: this.id,
       reposUrl: this.repos
     }
-    const payloadCache = {
-      id: this.id,
-      name: 'repos'
-    }
-
-    console.log('payload_LUI', payload);
-    console.log('hasCache', hasCache('repos', payload));
-
-    hasCache('repos', payload)
-      ? this.$store.commit('successFetchRepos', getCache(payloadCache))
-      : await this.$store.dispatch('fetchRepos', payload)
+    await this.$store.dispatch('fetchRepos', payload)
 
     this.countRepos()
   },
   methods: {
     countRepos() {
       this.cntRepos = this.$store.state.repos.items.length &&
-          this.$store.state.repos.items.filter((el, idx) => {
+          this.$store.state.repos.items.filter(el => {
             return el.id === this.id ? el : null
       })
     },

@@ -1,11 +1,13 @@
 <template>
   <div>
-    <h1>{{ getUser.login && getUser.login }}</h1>
+    <div>
+      <h1>{{ this.currentUser && this.currentUser.login }}</h1>
 
-    <img :src="getUser.avatar_url" alt="avatar">
-    <router-link
-      :to="{name: 'Home'}"
-    > Home</router-link>
+      <img :src="this.currentUser && this.currentUser.avatar_url " alt="avatar">
+      <router-link
+          :to="{name: 'Home'}"
+      > Home</router-link>
+    </div>
 
   </div>
 
@@ -21,11 +23,12 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit('currentFlat', this.id)
+    this.$store.commit('currentUser', this.id)
+    this.getUser()
   },
-  computed: {
+  methods: {
     getUser() {
-      return this.$store.state.users.currentUser
+      this.currentUser = this.$store.state.users.currentUser
     }
   }
 }

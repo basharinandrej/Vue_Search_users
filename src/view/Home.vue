@@ -3,28 +3,29 @@
     <h1>App Search Users</h1>
     <Form />
 
-    <p v-if="startFetchUsers && !failureFetchUsers">
+    <p v-if="startFetchUsers && !failureFetchRepos">
       Загрузка....
     </p>
 
     <ListUsers
-        v-if="!startFetchUsers && !failureFetchUsers"
+        v-if="!startFetchUsers && !failureFetchRepos"
         :fetchUsers="fetchUsers"
     />
 
     <Stub
-        v-if="!fetchUsers.length && !failureFetchUsers"
+        v-if="!fetchUsers.length && !failureFetchRepos"
     />
 
-    <p  v-if="failureFetchUsers">
+    {{ /*TODO Вынести в компонент вывод ошибки */ }}
+    <p  v-if="failureFetchRepos">
       {{failureFetchUsers}}
     </p>
 
-<!--    <p>-->
-<!--      {{failureFetchRepos}}-->
-<!--    </p>-->
+    <p v-if="failureFetchRepos">
+      {{failureFetchRepos}}
+    </p>
 
-    <Pagination v-if="fetchUsers && !failureFetchUsers"/>
+    <Pagination v-if="fetchUsers && !failureFetchRepos"/>
   </div>
 </template>
 
@@ -46,9 +47,6 @@ export default {
     Pagination,
     Stub
   },
-  mounted() {
-    /*this.cache = getCache('repos')*/
-  },
   computed: {
     startFetchUsers() {
       return this.$store.state.users.isLoading
@@ -56,19 +54,19 @@ export default {
     fetchUsers() {
       return this.$store.state.users.items || false
     },
+    /* TODO Вынести в файл вывод ошибок */
     failureFetchUsers() {
       const errorMessage = this.$store.state.users.errorMessage.trim()
       return errorMessage === 'Request failed with status code 403'
           ? 'Превышен лимит запросов к api GitHub. Подожди чуть-чуть, -а-а-аа'
           : null
     },
-    // failureFetchRepos() {
-    //   const errorMessage = this.$store.state.repos.errorMessage.trim()
-    //
-    //   return errorMessage === 'Request failed with status code 403'
-    //       ? 'Превышен лимит запросов к api GitHub / repos. Подожди чуть-чуть, -а-а-аа'
-    //       : null
-    // }
+    failureFetchRepos() {
+      const errorMessage = this.$store.state.repos.errorMessage.trim()
+      return errorMessage === 'Request failed with status code 403'
+          ? 'Превышен лимит запросов к api GitHub / repos. Подожди чуть-чуть, -а-а-аа'
+          : null
+    }
   }
 }
 </script>

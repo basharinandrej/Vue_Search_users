@@ -24,7 +24,6 @@ export default {
   methods: {
     async submitHandler() {
       this.$store.commit('saveSearchValue', this.search)
-
       await this.$store.dispatch('fetchUsers')
     }
   }
