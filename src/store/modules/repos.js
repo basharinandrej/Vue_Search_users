@@ -8,13 +8,11 @@ const state = {
     limitUser: null
 }
 
-{ /* TODO Сделать success.... */ }
-
 const actions = {
     async fetchRepos({commit, state, dispatch}, payload) {
         commit('startFetchRepos', this.state.users.perPage)
         const headers = {
-            "Authorization": `Token e5078fc6c8e150e162323f72a82f724e2cbf6e8b`
+            "Authorization": `Token 3255ca0c3d221ea41880faed32907590e06d8ff8 `
         }
 
         try {
