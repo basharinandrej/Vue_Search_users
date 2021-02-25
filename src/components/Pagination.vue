@@ -19,12 +19,13 @@
 </template>
 
 <script>
-/*TODO Пагинация не сохраняет своё состояние если вернуться с детальной страницы */
+
 export default {
   name: 'Pagination',
   data() {
     return {
-      currentPage: 1
+      currentPage: this.$store.state.users.currentPage,
+      limitPages: this.$store.state.pages.limitPagePagination
     }
   },
   methods: {
@@ -41,24 +42,24 @@ export default {
   computed: {
     cntPages() {
       const configPagination = {
+        LIMIT_PAGES: this.limitPages,
         PER_PAGE: this.$store.state.users.perPage,
-        LIMIT_PAGES: 5,
-        EQUATOR: 3,
-        TOTAL_COUNT: this.$store.state.users.total_count
+        EQUATOR: Math.round(this.limitPages / 2 ),
+        TOTAL_COUNT: this.$store.state.users.total_count,
+        OFFSET_PAGINATION: Math.round(this.limitPages / 2 ) - 1
       }
       const cntPages = Math.round( configPagination.TOTAL_COUNT / configPagination.PER_PAGE)
-      const currentPage = +this.$store.state.users.currentPage
+      const currentPage = +this.currentPage
       const pagination = cntPages > configPagination.LIMIT_PAGES
           ? configPagination.LIMIT_PAGES
           : cntPages
 
-      let fivePagesPagination = new Array( pagination )
+      let showPagesPagination = new Array( pagination )
         .fill(1)
         .map((el, idx) => {
           const indexPage = idx + 1
           const stepPagination = currentPage + idx
-          {/*TODO вынести в константу 2*/ }
-          const deltaPage = stepPagination - 2
+          const deltaPage = stepPagination - configPagination.OFFSET_PAGINATION
 
           if ( currentPage > configPagination.EQUATOR
               && cntPages > configPagination.LIMIT_PAGES ) {
@@ -70,7 +71,7 @@ export default {
       if (cntPages === 1) {
         return 0
       } else {
-        return cntPages ? fivePagesPagination : null
+        return cntPages ? showPagesPagination : null
       }
     }
   }

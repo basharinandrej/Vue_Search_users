@@ -15,7 +15,7 @@ const actions = {
         commit('startFetchRepos', this.state.users.perPage)
         const headers = {
             /*TODO Token устаревает после commit in repositories*/
-            "Authorization": `Token e8dcfcf5071cc9c53643fd34332ea16e1015061e`
+            "Authorization": `Token e655b96ef2705b79ff71bdad1b77c8902bbbaa21 `
         }
 
         try {

@@ -68,8 +68,6 @@ const mutations = {
     },
     sortUsers(state, payload) {
         state.items = payload.map(el => {
-            console.log('state.items', state.items);
-
             return state.items.find(elUser => {
                 return elUser.id === el.id
             })

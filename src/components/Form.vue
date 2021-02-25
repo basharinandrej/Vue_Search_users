@@ -5,7 +5,6 @@
       <input type="search"
              required
              v-model.trim="search"
-
       >
       <button type="submit">
         Send
@@ -14,7 +13,6 @@
 </template>
 
 <script>
-{{/*TODO Заменить submit на input*/}}
 
 export default {
   data() {

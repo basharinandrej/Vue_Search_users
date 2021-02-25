@@ -7,7 +7,7 @@
       Загрузка....
     </p>
 
-    <Sort v-if="!startFetchUsers && !failureFetchRepos" />
+    <Sort v-if="!startFetchUsers && !failureFetchRepos && fetchUsers.length " />
 
     <ListUsers
         v-if="!startFetchUsers && !failureFetchRepos"
