@@ -6,7 +6,7 @@
       <li class="page-item"
           v-for="(item, idx) in cntPages"
           :key="idx"
-          :class="{active: +item === +currentPage}"
+          :class="{active: +item === +getCurrentPage}"
       >
         <p class="page-link"
            :data-page="+item"
@@ -24,7 +24,7 @@ export default {
   name: 'Pagination',
   data() {
     return {
-      currentPage: this.$store.state.users.currentPage,
+      currentPage: null,
       limitPages: this.$store.state.pages.limitPagePagination
     }
   },
@@ -73,6 +73,10 @@ export default {
       } else {
         return cntPages ? showPagesPagination : null
       }
+    },
+    getCurrentPage() {
+      this.currentPage = this.$store.state.users.currentPage
+      return this.$store.state.users.currentPage
     }
   }
 }

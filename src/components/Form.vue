@@ -23,6 +23,7 @@ export default {
   methods: {
     async submitHandler() {
       this.$store.commit('saveSearchValue', this.search)
+      this.$store.commit('rollbackPage', 1)
       await this.$store.dispatch('fetchUsers')
     }
   }

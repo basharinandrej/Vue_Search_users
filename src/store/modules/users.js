@@ -23,10 +23,16 @@ const actions = {
             NAME: state.searchValue,
             PER_PAGE: state.perPage
         }
-
+        const headers = {
+            /*TODO Token устаревает после commit in repositories*/
+            "Authorization": `Token 0573b9a95fa318cbfdb88efacfa9b9df37e24ab4`
+        }
         try {
             const response = await axios
-                .get(`${baseUrl}users?q=${configRequest.NAME}&page=${configRequest.CURRENT_PAGE}&per_page=${configRequest.PER_PAGE}`)
+                .get(`${baseUrl}users?q=${configRequest.NAME}&page=${configRequest.CURRENT_PAGE}&per_page=${configRequest.PER_PAGE}`, {
+                    'method': 'GET',
+                    'headers': headers
+                })
 
             const users = await response.data
             const payloadAddUsers = {
@@ -72,6 +78,9 @@ const mutations = {
                 return elUser.id === el.id
             })
         })
+    },
+    rollbackPage(state, payload) {
+        state.currentPage = payload
     }
 }
 
