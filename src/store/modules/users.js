@@ -1,5 +1,6 @@
 import axios from "axios";
 import baseUrl from '@/helpers/url/baseUrl'
+import {tokenGitHub} from '@/helpers/token/index'
 
 const state = {
     items: [],
@@ -24,8 +25,7 @@ const actions = {
             PER_PAGE: state.perPage
         }
         const headers = {
-            /*TODO Token устаревает после commit in repositories*/
-            "Authorization": `Token 0573b9a95fa318cbfdb88efacfa9b9df37e24ab4`
+            "Authorization": `Token ${tokenGitHub}`
         }
         try {
             const response = await axios

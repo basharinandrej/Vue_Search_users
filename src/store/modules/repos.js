@@ -1,5 +1,6 @@
 import axios from "axios"
 import lodash from "lodash"
+import {tokenGitHub} from '@/helpers/token/index'
 
 { /* TODO Нужен ли limitUser, ведь есть perPage? */ }
 const state = {
@@ -14,8 +15,7 @@ const actions = {
     async fetchRepos({commit, state, dispatch}, payload) {
         commit('startFetchRepos', this.state.users.perPage)
         const headers = {
-            /*TODO Token устаревает после commit in repositories*/
-            "Authorization": `Token 0573b9a95fa318cbfdb88efacfa9b9df37e24ab4`
+            "Authorization": `Token ${tokenGitHub}  `
         }
 
         try {
