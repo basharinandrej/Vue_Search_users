@@ -14,6 +14,7 @@
 </template>
 
 <script>
+{{/*TODO Заменить submit на input*/}}
 
 export default {
   data() {

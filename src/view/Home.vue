@@ -7,7 +7,8 @@
       Загрузка....
     </p>
 
-    <Sort />
+    <Sort v-if="!startFetchUsers && !failureFetchRepos" />
+
     <ListUsers
         v-if="!startFetchUsers && !failureFetchRepos"
         :fetchUsers="fetchUsers"
