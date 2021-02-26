@@ -1,5 +1,5 @@
 <template>
-  <li @click="clickHandler">
+  <li class="list__item" @click="clickHandler">
       <span>
         <p> Login: {{ JSON.stringify(login) }} </p>
         <p> Status: {{ JSON.stringify(type )}} </p>

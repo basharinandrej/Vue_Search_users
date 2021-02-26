@@ -17,7 +17,7 @@ module.exports = {
         },
         extensions: ['.js', '.vue']
     },
-    plugins: [
+        plugins: [
         new HTMLWebpackPlugin({
             template: './src/index.html'
         }),
@@ -27,12 +27,36 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.s[ac]ss$/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
-            },
-            {
                 test: /\.vue$/,
                 loader: "vue-loader"
+            },
+            {
+                test: /\.sass$/i,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[local]___[hash:base64:5]'
+                            }
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sassOptions: {
+                                indentedSyntax: true
+                            }
+                        }
+                    },
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            resources: ['./src/style/variables.sass']
+                        }
+                    }
+                ]
             },
             {
                 test: /\.m?js$/,

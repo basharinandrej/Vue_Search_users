@@ -5,8 +5,11 @@
       <input type="search"
              required
              v-model.trim="search"
+             class="input"
       >
-      <button type="submit">
+      <button
+          class="button"
+          type="submit">
         Send
       </button>
   </form>
@@ -30,7 +33,16 @@ export default {
 }
 </script>
 
+<style lang="sass" scoped>
 
+.form
+  background: $color_1
+
+.button
+  font-size: 100px
+
+
+</style>
 
 
 
