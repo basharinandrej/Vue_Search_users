@@ -1,14 +1,19 @@
 import axios from "axios"
 import lodash from "lodash"
-import {tokenGitHub} from '@/helpers/token/index'
+import {tokenGitHub} from '@/helpers/token'
 
 { /* TODO Нужен ли limitUser, ведь есть perPage? */ }
 const state = {
+    currentUserId: '',
     items: [],
     isLoading: false,
     errorMessage: '',
     limitUser: null,
-    sort: 'asc' // desc
+    sort: 'asc', // desc
+    paginationSinglePage: {
+        cntViewRepo: 6,
+        currentPartView: 1
+    }
 }
 
 const actions = {
@@ -23,6 +28,7 @@ const actions = {
                 "method": "GET",
                 "headers": headers
             })
+
             let userRepos = {
                 id: payload.id,
                 repos: response.data
@@ -55,9 +61,33 @@ const mutations = {
     sortMutation(state, payload) {
         state.sort = state.sort === 'asc' ? 'desc' : 'asc'
         state.items = lodash.orderBy(state.items, [payload], state.sort)
+    },
+    getCurrentUser(state, payload) {
+        state.currentUserId = payload
+    },
+    viewPartRepo(state, payload) {
+        state.paginationSinglePage.currentPartView = payload
+    }
+}
+
+const getters = {
+    getCurrentRepositories(state) {
+        let repoArr = state.items.find(repo => repo.id === state.currentUserId).repos
+
+        repoArr = repoArr.filter((el, idx) => {
+            const index = idx + 1
+            const topLine = state.paginationSinglePage.cntViewRepo * state.paginationSinglePage.currentPartView
+            const bottomLine = topLine - state.paginationSinglePage.cntViewRepo + 1
+
+            return index >= bottomLine && index <= topLine ? el : null
+        })
+        return repoArr
+    },
+    cntRepositories(state) {
+        return state.items.find(repo => repo.id === state.currentUserId).repos.length
     }
 }
 
 export default {
-    state, actions, mutations
+    state, actions, mutations, getters
 }

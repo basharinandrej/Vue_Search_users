@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import users from '@/store/modules/users'
 import repos from '@/store/modules/repos'
-import pages from '@/store/modules/pages'
+import pagination from '@/store/modules/pagination'
+import followers from '@/store/modules/followers'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,6 @@ export default new Vuex.Store({
     actions: {
     },
     modules: {
-        users, repos, pages
+        users, repos, pagination, followers
     }
 })

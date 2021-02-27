@@ -23,6 +23,7 @@ export default {
       search: ''
     }
   },
+  components: ['Favicon'],
   methods: {
     async submitHandler() {
       this.$store.commit('saveSearchValue', this.search)
@@ -54,6 +55,10 @@ input
   color: $color_1
   border: none
   border-radius: 0 4px 4px 0
+
+img
+  width: 50px
+  height: 50px
 
 </style>
 

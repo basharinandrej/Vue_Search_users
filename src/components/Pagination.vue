@@ -1,7 +1,7 @@
 <template>
   <nav class="pagination">
     <ul class="pagination__list"
-        @click="clickHandler"
+        @click='clickHandler'
     >
       <li class="pagination__item"
           v-for="(item, idx) in cntPages"
@@ -22,10 +22,11 @@
 
 export default {
   name: 'Pagination',
+  props: ['limitPage', 'currentPagePagination', 'totalCount', 'perPage'],
   data() {
     return {
       currentPage: null,
-      limitPages: this.$store.state.pages.limitPagePagination
+      limitPages: this.limitPage
     }
   },
   methods: {
@@ -34,21 +35,17 @@ export default {
       const page = this.currentPage = target.dataset.page
 
       if (target.dataset.page) {
-        this.$store.commit('updateCurrentPage', page)
-        this.updateFetchUsers()
+        this.$emit('clickPaginationHandler', page)
       }
-    },
-    async updateFetchUsers() {
-      await this.$store.dispatch('fetchUsers')
     }
   },
   computed: {
     cntPages() {
       const configPagination = {
         LIMIT_PAGES: this.limitPages,
-        PER_PAGE: this.$store.state.users.perPage,
+        PER_PAGE: this.perPage,
         EQUATOR: Math.round(this.limitPages / 2 ),
-        TOTAL_COUNT: this.$store.state.users.total_count,
+        TOTAL_COUNT: this.totalCount,
         OFFSET_PAGINATION: Math.round(this.limitPages / 2 ) - 1
       }
       const cntPages = Math.round( configPagination.TOTAL_COUNT / configPagination.PER_PAGE)
@@ -71,6 +68,10 @@ export default {
           return indexPage === currentPage ? currentPage : indexPage
         })
 
+      console.log('showPagesPagination', showPagesPagination);
+      console.log('pagination', pagination);
+      console.log('cntPages', cntPages);
+
       if (cntPages === 1) {
         return 0
       } else {
@@ -78,8 +79,8 @@ export default {
       }
     },
     getCurrentPage() {
-      this.currentPage = this.$store.state.users.currentPage
-      return this.$store.state.users.currentPage
+      this.currentPage = this.currentPagePagination
+      return this.currentPagePagination
     }
   }
 }

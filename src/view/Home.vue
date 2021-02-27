@@ -5,27 +5,28 @@
 
       <Form />
 
-      <Loader  v-if="startFetchUsers && !failureFetchRepos"/>
+      <Loader v-if="startFetchUsers && !getError"/>
 
       <ListUsers
-          v-if="!startFetchUsers && !failureFetchRepos && fetchUsers.length"
+          v-if="!startFetchUsers && !getError && fetchUsers.length"
           :fetchUsers="fetchUsers"
       />
 
       <Stub
-          v-if="!fetchUsers.length && !failureFetchRepos"
+          v-if="!fetchUsers.length && !startFetchUsers"
       />
 
-      {{ /*TODO Вынести в компонент вывод ошибки */ }}
-      <p  v-if="failureFetchUsers">
-        {{failureFetchUsers}}
-      </p>
+      <Errors v-if="getError"
+              v-bind:error="getError"
+      />
 
-      <p v-if="failureFetchRepos">
-        {{failureFetchRepos}}
-      </p>
-
-      <Pagination v-if="fetchUsers && !failureFetchRepos"/>
+      <Pagination v-if="fetchUsers && !getError"
+                  v-bind:limitPage="limitPagesPagination"
+                  v-bind:currentPagePagination="currentPagePagination"
+                  v-bind:totalCount="totalCount"
+                  v-bind:perPage="perPage"
+                  v-on:clickPaginationHandler="clickPaginationHandler"
+      />
     </div>
   </section>
 </template>
@@ -37,6 +38,7 @@ import Form from "@/components/Form"
 import Stub from "@/components/Stub"
 import Sort from "@/components/Sort"
 import Loader from "@/components/Loader"
+import Errors from "@/components/Error";
 
 export default {
   data() {
@@ -45,10 +47,21 @@ export default {
     }
   },
   components: {
+    Errors,
     Form,
     ListUsers,
     Pagination,
     Stub, Sort, Loader
+  },
+  methods: {
+    clickPaginationHandler(page) {
+      this.$store.commit('updateCurrentPage', page)
+
+      this.updateFetchUsers()
+    },
+    async updateFetchUsers() {
+      await this.$store.dispatch('fetchUsers')
+    }
   },
   computed: {
     startFetchUsers() {
@@ -57,18 +70,21 @@ export default {
     fetchUsers() {
       return this.$store.state.users.items || false
     },
-    /* TODO Вынести в файл вывод ошибок */
-    failureFetchUsers() {
-      const errorMessage = this.$store.state.users.errorMessage.trim()
-      return errorMessage === 'Request failed with status code 403'
-          ? 'Превышен лимит запросов к api GitHub. Подожди чуть-чуть, -а-а-аа'
-          : null
+    getError() {
+      return  this.$store.state.repos.errorMessage.trim() ||
+              this.$store.state.users.errorMessage.trim()
     },
-    failureFetchRepos() {
-      const errorMessage = this.$store.state.repos.errorMessage.trim()
-      return errorMessage === 'Request failed with status code 403'
-          ? 'Превышен лимит запросов к api GitHub / repos. Подожди чуть-чуть, -а-а-аа'
-          : null
+    limitPagesPagination() {
+      return this.$store.state.pagination.limitPagePaginationHome
+    },
+    currentPagePagination() {
+      return this.$store.state.users.currentPage
+    },
+    totalCount() {
+      return this.$store.state.users.total_count
+    },
+    perPage() {
+      return this.$store.state.users.perPage
     }
   }
 }
@@ -86,7 +102,7 @@ export default {
     margin-bottom: 12px
     color: $default-color
 
-  .stub
+  .stub, .error__paragraph
     margin-top: 96px
 
   .form
