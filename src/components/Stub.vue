@@ -1,5 +1,5 @@
 <template>
-  <p class="stub">Not found users</p>
+  <p class="stub">Users not found </p>
 </template>
 
 <script>
@@ -8,3 +8,10 @@ export default {
 }
 </script>
 
+<style lang="sass">
+
+.stub
+  color: $default-color
+  text-align: center
+
+</style>

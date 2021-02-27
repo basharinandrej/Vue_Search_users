@@ -31,29 +31,23 @@ module.exports = {
                 loader: "vue-loader"
             },
             {
-                test: /\.sass$/i,
+                test: /\.sass$/,
                 use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: {
-                                localIdentName: '[local]___[hash:base64:5]'
-                            }
-                        }
-                    },
-                    {
-                        loader: 'sass-loader',
+                    {loader: 'style-loader'},
+                    {loader: 'css-loader'},
+                    {loader: 'sass-loader',
                         options: {
                             sassOptions: {
                                 indentedSyntax: true
                             }
                         }
                     },
-                    {
-                        loader: 'sass-resources-loader',
+                    {loader: 'sass-resources-loader',
                         options: {
-                            resources: ['./src/style/variables.sass']
+                            resources: [
+                                './src/style/variables.sass',
+                                './src/style/reset.sass'
+                            ]
                         }
                     }
                 ]

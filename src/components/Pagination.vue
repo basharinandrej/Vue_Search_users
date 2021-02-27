@@ -1,14 +1,14 @@
 <template>
-  <nav aria-label="Page navigation example" class="pagination">
+  <nav class="pagination">
     <ul class="pagination__list"
         @click="clickHandler"
     >
-      <li class="page-item"
+      <li class="pagination__item"
           v-for="(item, idx) in cntPages"
           :key="idx"
           :class="{active: +item === +getCurrentPage}"
       >
-        <p class="page-link"
+        <p class="pagination__paragraph"
            :data-page="+item"
         >
           {{item}}
@@ -32,8 +32,11 @@ export default {
     clickHandler(e) {
       const target = e.target
       const page = this.currentPage = target.dataset.page
-      this.$store.commit('updateCurrentPage', page)
-      this.updateFetchUsers()
+
+      if (target.dataset.page) {
+        this.$store.commit('updateCurrentPage', page)
+        this.updateFetchUsers()
+      }
     },
     async updateFetchUsers() {
       await this.$store.dispatch('fetchUsers')
@@ -82,3 +85,24 @@ export default {
 }
 </script>
 
+<style lang="sass">
+  .pagination
+    display: flex
+    justify-content: center
+
+    &__list
+      display: flex
+
+    &__item
+      background: $default-color
+      list-style: none
+      cursor: pointer
+      margin-right: 12px
+      border-radius: 4px
+
+    &__paragraph
+      padding: 8px 12px
+
+    &__item.active
+      background: $color_3
+</style>

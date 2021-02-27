@@ -1,12 +1,11 @@
 <template>
-  <div>
     <span class="sort" v-on:click="this.sortHandler">
-      Вверх / Вниз
+      <slot />
     </span>
-  </div>
 </template>
 
 <script>
+
 export default {
   name: 'Sort',
   methods: {
@@ -15,6 +14,16 @@ export default {
     }
   }
 }
-{/*TODO Поставить Loader webpack, чтобы поддерживались стили из компонентов*/}
+
 </script>
 
+<style lang="sass">
+
+.sort
+  cursor: pointer
+
+  &:before
+    content: '↑ ↓'
+    cursor: pointer
+
+</style>
