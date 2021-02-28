@@ -1,6 +1,6 @@
 <template>
   <p class="error__paragraph" >
-      {{ this.errorMessage }}
+      {{ generationMessageError }}
   </p>
 </template>
 
@@ -16,14 +16,15 @@ export default {
   },
   mounted() {
     this.errorMessage = this.error
-
-    this.generationMessageError()
   },
-  methods: {
+  computed: {
     generationMessageError() {
-      this.errorMessage === 'Request failed with status code 403'
-        ? this.errorMessage = 'ERROR Превышен лимит запросов к api GitHub'
-        : null
+      switch (this.errorMessage) {
+        case 'Request failed with status code 403':
+          return 'ERROR Превышен лимит запросов к api GitHub'
+        case 'Request failed with status code 401':
+            return 'Token не актуальный'
+      }
     }
   }
 }
