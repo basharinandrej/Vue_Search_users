@@ -5,7 +5,7 @@
         <router-link
           class="section-single__router-link"
           :to="{name: 'Home'}"
-        > Home</router-link>
+        > Back</router-link>
 
         <span class="section-single__title-wrapper">
           Name:&nbsp;
@@ -115,4 +115,7 @@ export default {
 
   .list-followers
     margin-bottom: 24px
+
+  .pagination
+    padding-bottom: 24px
 </style>

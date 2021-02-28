@@ -1,27 +1,22 @@
 <template>
   <div>
     <h3 class="section-single__title section-single__title--gap">
-      Repositories {{ cntRepositories }}
+      Repositories {{cntRepositories && cntRepositories.repos.length }}
     </h3>
     <ul class="list-repositories">
       <ListRepositoriesItem
         v-for="(repo, idx) in repositories"
         :key="idx"
         :description="repo.description"
-        :contributors="repo.contributors_url"
-        :commits="repo.commits_url"
-        :size="repo.size"
-        :default_branch="repo.default_branch"
-        :private="repo.private"
         :name="repo.name"
+        :size="repo.size"
       />
     </ul>
-
     <Pagination
-      v-bind:limitViewButtons="limitPagesPagination"
-      v-bind:currentPagePagination="currentPagePagination"
-      v-bind:totalCountItems="cntRepositories"
-      v-bind:perPage="perPage"
+      :limitViewButtons="limitPagesPagination"
+      :currentPagePagination="currentPagePagination"
+      :totalCountItems="cntRepositories.repos.length"
+      :perPage="perPage"
       v-on:clickPaginationHandler="clickPaginationHandler"
     />
   </div>

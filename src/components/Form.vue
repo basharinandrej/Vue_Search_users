@@ -18,12 +18,12 @@
 <script>
 
 export default {
+  name: 'Form',
   data() {
     return {
       search: ''
     }
   },
-  components: ['Favicon'],
   methods: {
     async submitHandler() {
       this.$store.commit('saveSearchValue', this.search)

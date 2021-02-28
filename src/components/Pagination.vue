@@ -63,12 +63,6 @@ export default {
           const singleButton = 1
           const deltaButtons = configPagination.OFFSET_PAGINATION - singleButton
 
-          //aasw
-          //zolli
-          // console.log('cntButtons', cntButtons);
-          // console.log('currentButton', currentButton);
-          // console.log('deltaButtons', deltaButtons);
-
           if( cntViewButtons >= configPagination.LIMIT_VIEW_BUTTONS &&  cntButtons - currentButton <= deltaButtons ) {
             return cntButtons - configPagination.LIMIT_VIEW_BUTTONS + indexPage
           }

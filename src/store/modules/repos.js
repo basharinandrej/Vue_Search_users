@@ -72,9 +72,8 @@ const mutations = {
 
 const getters = {
     getCurrentRepositories(state) {
-        let repoArr = state.items.find(repo => repo.id === state.currentUserId).repos
-
-        repoArr = repoArr.filter((el, idx) => {
+        let repoArr = state.items && state.items.find(repo => repo.id === state.currentUserId)
+        repoArr = repoArr && repoArr.repos.filter((el, idx) => {
             const index = idx + 1
             const topLine = state.paginationSinglePage.cntViewRepo * state.paginationSinglePage.currentPartView
             const bottomLine = topLine - state.paginationSinglePage.cntViewRepo + 1
@@ -84,7 +83,7 @@ const getters = {
         return repoArr
     },
     cntRepositories(state) {
-        return state.items.find(repo => repo.id === state.currentUserId).repos.length
+        return state.items.find(repo => repo.id === state.currentUserId)
     }
 }
 
