@@ -2,7 +2,6 @@ import axios from "axios"
 import lodash from "lodash"
 import {tokenGitHub} from '@/helpers/token'
 
-{ /* TODO Нужен ли limitUser, ведь есть perPage? */ }
 const state = {
     currentUserId: '',
     items: [],
