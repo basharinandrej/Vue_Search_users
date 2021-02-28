@@ -1,3 +1,3 @@
 /*TODO Token устаревает после commit in repositories*/
-
-export const tokenGitHub = 'eca7f00895b38727254826dce0f7fee1c0c4e9ea'
+// 77b215703280ba881cbad10a38abf1aecfa9e0c1
+export const tokenGitHub = '77b215703280ba881cbad10a38abf1aecfa9e0c1 '
