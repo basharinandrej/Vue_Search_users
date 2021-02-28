@@ -18,10 +18,10 @@
     </ul>
 
     <Pagination
-      v-bind:limitPage="limitPagesPagination"
+      v-bind:limitViewButtons="limitPagesPagination"
       v-bind:currentPagePagination="currentPagePagination"
-      v-bind:totalCount="cntRepositories"
-      v-bind:perPage="repositories.length"
+      v-bind:totalCountItems="cntRepositories"
+      v-bind:perPage="perPage"
       v-on:clickPaginationHandler="clickPaginationHandler"
     />
   </div>
@@ -35,6 +35,9 @@ export default {
   name: 'ListRepositories',
   props: ['repositories'],
   components: {Pagination, ListRepositoriesItem},
+  mounted() {
+    this.$store.commit('viewPartRepo', 1)
+  },
   computed: {
     limitPagesPagination() {
       return this.$store.state.pagination.limitPagePaginationRepositories
@@ -44,11 +47,13 @@ export default {
     },
     cntRepositories() {
       return this.$store.getters.cntRepositories
+    },
+    perPage() {
+      return this.$store.state.repos.paginationSinglePage.cntViewRepo
     }
   },
   methods: {
     clickPaginationHandler(page) {
-      console.log('page', page);
       this.$store.commit('viewPartRepo', page)
     }
   }

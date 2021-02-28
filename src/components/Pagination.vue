@@ -4,9 +4,9 @@
         @click='clickHandler'
     >
       <li class="pagination__item"
-          v-for="(item, idx) in cntPages"
+          v-for="(item, idx) in cntButtons"
           :key="idx"
-          :class="{active: +item === +getCurrentPage}"
+          :class="{active: +item === +getCurrentButton}"
       >
         <p class="pagination__paragraph"
            :data-page="+item"
@@ -22,17 +22,17 @@
 
 export default {
   name: 'Pagination',
-  props: ['limitPage', 'currentPagePagination', 'totalCount', 'perPage'],
+  props: ['limitViewButtons', 'perPage', 'currentPagePagination', 'totalCountItems'],
   data() {
     return {
-      currentPage: null,
-      limitPages: this.limitPage
+      currentButton: null,
+      limitButtons: this.limitViewButtons
     }
   },
   methods: {
     clickHandler(e) {
       const target = e.target
-      const page = this.currentPage = target.dataset.page
+      const page = this.currentButton = target.dataset.page
 
       if (target.dataset.page) {
         this.$emit('clickPaginationHandler', page)
@@ -40,46 +40,53 @@ export default {
     }
   },
   computed: {
-    cntPages() {
+    cntButtons() {
       const configPagination = {
-        LIMIT_PAGES: this.limitPages,
-        PER_PAGE: this.perPage,
-        EQUATOR: Math.round(this.limitPages / 2 ),
-        TOTAL_COUNT: this.totalCount,
-        OFFSET_PAGINATION: Math.round(this.limitPages / 2 ) - 1
+        LIMIT_VIEW_BUTTONS: this.limitButtons,
+        TOTAL_ITEMS: this.totalCountItems,
+        PER_PAGE_ITEMS: this.perPage,
+        EQUATOR: Math.ceil(this.limitButtons / 2 ),
+        OFFSET_PAGINATION: Math.ceil(this.limitButtons / 2 )
       }
-      const cntPages = Math.round( configPagination.TOTAL_COUNT / configPagination.PER_PAGE)
-      const currentPage = +this.currentPage
-      const pagination = cntPages > configPagination.LIMIT_PAGES
-          ? configPagination.LIMIT_PAGES
-          : cntPages
 
-      let showPagesPagination = new Array( pagination )
+      const currentButton = +this.currentButton
+      const cntButtons = Math.ceil( configPagination.TOTAL_ITEMS / configPagination.PER_PAGE_ITEMS)
+      const cntViewButtons = cntButtons > configPagination.LIMIT_VIEW_BUTTONS
+          ? configPagination.LIMIT_VIEW_BUTTONS
+          : cntButtons
+
+      let showButtonsPagination = new Array( cntViewButtons )
         .fill(1)
         .map((el, idx) => {
           const indexPage = idx + 1
-          const stepPagination = currentPage + idx
-          const deltaPage = stepPagination - configPagination.OFFSET_PAGINATION
+          const nextButtons = currentButton + idx
+          const singleButton = 1
+          const deltaButtons = configPagination.OFFSET_PAGINATION - singleButton
 
-          if ( currentPage > configPagination.EQUATOR
-              && cntPages > configPagination.LIMIT_PAGES ) {
-            return deltaPage
+          //aasw
+          //zolli
+          // console.log('cntButtons', cntButtons);
+          // console.log('currentButton', currentButton);
+          // console.log('deltaButtons', deltaButtons);
+
+          if( cntViewButtons >= configPagination.LIMIT_VIEW_BUTTONS &&  cntButtons - currentButton <= deltaButtons ) {
+            return cntButtons - configPagination.LIMIT_VIEW_BUTTONS + indexPage
           }
-          return indexPage === currentPage ? currentPage : indexPage
+
+          if ( currentButton > configPagination.EQUATOR ) {
+            return nextButtons - deltaButtons
+          }
+          return indexPage
         })
 
-      console.log('showPagesPagination', showPagesPagination);
-      console.log('pagination', pagination);
-      console.log('cntPages', cntPages);
-
-      if (cntPages === 1) {
+      if (cntButtons === 1) {
         return 0
       } else {
-        return cntPages ? showPagesPagination : null
+        return cntButtons ? showButtonsPagination : null
       }
     },
-    getCurrentPage() {
-      this.currentPage = this.currentPagePagination
+    getCurrentButton() {
+      this.currentButton = this.currentPagePagination
       return this.currentPagePagination
     }
   }

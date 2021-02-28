@@ -21,9 +21,9 @@
       />
 
       <Pagination v-if="fetchUsers && !getError"
-                  v-bind:limitPage="limitPagesPagination"
+                  v-bind:limitViewButtons="limitPagesPagination"
                   v-bind:currentPagePagination="currentPagePagination"
-                  v-bind:totalCount="totalCount"
+                  v-bind:totalCountItems="totalCountItems"
                   v-bind:perPage="perPage"
                   v-on:clickPaginationHandler="clickPaginationHandler"
       />
@@ -80,7 +80,7 @@ export default {
     currentPagePagination() {
       return this.$store.state.users.currentPage
     },
-    totalCount() {
+    totalCountItems() {
       return this.$store.state.users.total_count
     },
     perPage() {
