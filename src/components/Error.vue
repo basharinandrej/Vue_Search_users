@@ -23,7 +23,7 @@ export default {
         case 'Request failed with status code 403':
           return 'ERROR Превышен лимит запросов к api GitHub'
         case 'Request failed with status code 401':
-            return 'Token не актуальный'
+            return 'Token не актуальный. Обновите его в - src/helpers/token/index.js'
       }
     }
   }
