@@ -1,6 +1,6 @@
 import axios from "axios";
 import baseUrl from '@/helpers/url/baseUrl'
-import {tokenGitHub} from '@/helpers/token/index'
+import {tokenGitHub} from '@/helpers/token'
 
 const state = {
     items: [],

@@ -43,7 +43,7 @@ import Errors from "@/components/Error";
 export default {
   data() {
     return {
-      cache: null
+      textError: 'Users not found'
     }
   },
   components: {

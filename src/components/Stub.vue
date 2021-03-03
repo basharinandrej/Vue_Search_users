@@ -1,5 +1,5 @@
-<template>
-  <p class="stub">Users not found </p>
+<template functional>
+  <p class="stub">{{ props.text }}</p>
 </template>
 
 <script>
