@@ -14,6 +14,7 @@
 
       <Stub
           v-if="!fetchUsers.length && !startFetchUsers"
+          :text="this.textError"
       />
 
       <Errors v-if="getError"
