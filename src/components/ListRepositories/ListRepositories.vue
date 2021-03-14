@@ -40,11 +40,11 @@ export default {
     currentPagePagination() {
       return this.$store.state.repos.paginationSinglePage.currentPartView
     },
-    cntRepositories() {
-      return this.$store.getters.cntRepositories
-    },
     perPage() {
       return this.$store.state.repos.paginationSinglePage.cntViewRepo
+    },
+    cntRepositories() {
+      return this.$store.getters.cntRepositories
     }
   },
   methods: {

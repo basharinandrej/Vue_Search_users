@@ -1,1 +1,1 @@
-export const tokenGitHub = 'a01855bf07671ba92dcd40520414e11974bf7fee '
+export const tokenGitHub = 'c51aa0c66e00256eb712f0f20c8a3b4a8867514e '

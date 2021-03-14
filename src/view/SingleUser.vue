@@ -55,7 +55,7 @@ export default {
   methods: {
     getUser() {
       this.currentUser = this.$store.state.users.currentUser
-      this.$store.commit('getCurrentUser', this.id)
+      //this.$store.commit('getCurrentUser', this.id)
     },
     fetchFollowers() {
       this.$store.dispatch('fetchFollowers', this.currentUser.followers_url)

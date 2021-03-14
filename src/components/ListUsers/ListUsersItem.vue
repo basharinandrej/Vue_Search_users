@@ -23,7 +23,6 @@ export default {
       reposUrl: this.repos
     }
     await this.$store.dispatch('fetchRepos', payload)
-
     this.countRepos()
   },
   methods: {
@@ -35,6 +34,7 @@ export default {
     },
     clickHandler() {
       this.$router.push({ name: 'SingleUser', params: { 'id': this.id }})
+      this.$store.commit('getCurrentUser', this.id)
     }
   }
 }

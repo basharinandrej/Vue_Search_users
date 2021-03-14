@@ -34,7 +34,9 @@
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "axios": "^0.21.1",
+    "firebase-tools": "^9.5.0",
     "lodash": "^4.17.21",
+    "nodemon": "^2.0.7",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"

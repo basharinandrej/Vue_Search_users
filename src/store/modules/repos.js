@@ -82,7 +82,7 @@ const getters = {
         return repoArr
     },
     cntRepositories(state) {
-        return state.items.find(repo => repo.id === state.currentUserId)
+        return state.items && state.items.find(repo => repo.id === state.currentUserId)
     }
 }
 

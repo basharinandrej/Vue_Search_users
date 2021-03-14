@@ -41,6 +41,7 @@ import Sort from "@/components/Sort"
 import Loader from "@/components/Loader"
 import Errors from "@/components/Error";
 
+
 export default {
   data() {
     return {
@@ -57,7 +58,6 @@ export default {
   methods: {
     clickPaginationHandler(page) {
       this.$store.commit('updateCurrentPage', page)
-
       this.updateFetchUsers()
     },
     async updateFetchUsers() {
